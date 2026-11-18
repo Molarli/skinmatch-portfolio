@@ -1,5 +1,7 @@
 # SkinMatch
 
+**[Live Demo](https://molarli.github.io/skinmatch-portfolio/)** — Try a skin profile, filter ingredients, and see ranked matches from a fictional catalog. The demo runs in your browser.
+
 A team-built skincare recommendation app built with Node.js, Express, and MySQL 8. A stored function scores products against a user’s skin profile and excludes products containing their flagged ingredients.
 
 ## What is in this folder
