@@ -1,0 +1,92 @@
+### SkinMatch API - test with the VS Code "REST Client" extension (or copy into Postman)
+@base = http://localhost:3000
+
+### 1. Catalogue (anyone)
+GET {{base}}/products?category=serum&sort=price_asc
+
+### 2. Filters: under 600 baht, for oily skin, treats acne (concern 1), no allergens
+GET {{base}}/products?max_price=600&skin_type=oily&concern_id=1&exclude_allergens=1
+
+### 3. Bad input -> 400
+GET {{base}}/products?category=shampoo
+
+### 4. Product page
+GET {{base}}/products/1
+
+### 5. Not logged in -> 401
+GET {{base}}/me/profile
+
+### 6. Log in as a member
+POST {{base}}/auth/login
+Content-Type: application/json
+
+{ "email": "member1@example.com", "password": "member1234" }
+
+### 7. Wrong password -> 401 (same message as unknown email)
+POST {{base}}/auth/login
+Content-Type: application/json
+
+{ "email": "member1@example.com", "password": "nope" }
+
+### 8. My profile (id from the session)
+GET {{base}}/me/profile
+
+### 9. Save profile -> one transaction over 4 tables
+PUT {{base}}/me/profile
+Content-Type: application/json
+
+{ "skin_type": "oily", "age_group": "18-24", "gender": "female", "skin_tone": "light",
+  "concerns": [ { "concern_id": 1, "severity_level": 3 }, { "concern_id": 3, "severity_level": 2 } ],
+  "allergens": [23] }
+
+### 10. Unknown concern id -> transaction rolled back -> 400
+PUT {{base}}/me/profile
+Content-Type: application/json
+
+{ "skin_type": "oily", "age_group": "18-24", "concerns": [ { "concern_id": 999 } ] }
+
+### 11. Recommendations -> CALL sp_generate_recommendations
+POST {{base}}/me/recommendations
+Content-Type: application/json
+
+{ "limit": 5 }
+
+### 12. Review twice -> 409 (UNIQUE user_id, product_id)
+POST {{base}}/products/1/reviews
+Content-Type: application/json
+
+{ "rating": 5, "comment": "again" }
+
+### 13. A member calls an admin route -> 403
+GET {{base}}/admin/report/brands
+
+### 14. Log in as admin
+POST {{base}}/auth/login
+Content-Type: application/json
+
+{ "email": "demo-admin@example.com", "password": "admin1234" }
+
+### 15. Brand report (view v_brand_report)
+GET {{base}}/admin/report/brands
+
+### 16. Change a price -> trigger writes product_price_log
+PATCH {{base}}/admin/products/13
+Content-Type: application/json
+
+{ "price": 470 }
+
+### 17. Read the audit log
+GET {{base}}/admin/price-log
+
+### 18. Create a sunscreen (product + subtype + bridges in one transaction)
+POST {{base}}/admin/products
+Content-Type: application/json
+
+{ "product_name": "Test Sunscreen SPF30", "brand_id": 3, "category": "sunscreen", "price": 299, "volume_ml": 30,
+  "gender_target": "unisex", "skin_types": ["oily", "normal"],
+  "concerns": [ { "concern_id": 5, "effectiveness_level": 1 } ],
+  "ingredients": [ { "ingredient_id": 15, "concentration_percent": 10 } ],
+  "subtype": { "spf": 30, "pa_rating": "PA+++", "filter_type": "physical" } }
+
+### 19. Log out
+POST {{base}}/auth/logout

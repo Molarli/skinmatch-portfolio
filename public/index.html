@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Skin-Match</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22%3E%3Cpath fill=%22%232f4a3b%22 d=%22M12 3c3 4 6 7.4 6 11a6 6 0 0 1-12 0c0-3.6 3-7 6-11z%22/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <div class="logo" data-go="catalog">
+        <span class="logo-mark"><svg viewBox="0 0 24 24"><path d="M12 3c3 4 6 7.4 6 11a6 6 0 0 1-12 0c0-3.6 3-7 6-11z"/></svg></span>
+        <span><small>Skin-Match</small><b id="pageTitle">All Products</b></span>
+      </div>
+      <button class="userbtn" id="userBtn">Log in</button>
+    </header>
+
+    <main id="view" class="view"></main>
+
+    <nav class="bottomnav" id="nav">
+      <button data-go="profile"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>My Skin</button>
+      <button data-go="reco"><svg viewBox="0 0 24 24"><path d="M12 3l1.8 5.4L19 10l-5.2 1.6L12 17l-1.8-5.4L5 10l5.2-1.6z"/></svg>For You</button>
+      <button data-go="catalog"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg>Products</button>
+      <button data-go="admin" id="navAdmin" hidden><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/></svg>Admin</button>
+    </nav>
+  </div>
+
+  <button class="logbtn" id="logBtn" title="API log">API</button>
+  <aside class="logpanel" id="logPanel" hidden>
+    <div class="logpanel-head"><b>API log</b><span>Requests the page sent to the server</span><button id="logClose">×</button></div>
+    <ol id="logList"></ol>
+  </aside>
+
+  <div class="toast" id="toast" hidden></div>
+  <script src="app.js"></script>
+</body>
+</html>
