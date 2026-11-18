@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SkinMatch | Live Demo</title>
+<link rel="stylesheet" href="style.css">
+<script defer src="catalog.js"></script>
+<script defer src="demo.js"></script>
+</head>
+<body>
+<div class="shell">
+<header class="topbar">
+<div class="logo"><span class="logo-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c3 4 6 7.4 6 11a6 6 0 0 1-12 0c0-3.6 3-7 6-11z"/></svg></span><b>SkinMatch</b></div>
+<span class="muted">Portfolio demo</span>
+</header>
+<main class="view">
+<section id="profile">
+<h1>My Skin</h1>
+<p class="lead">Try a fictional skin profile to see how SkinMatch ranks products. The demo runs in your browser.</p>
+<form id="profile-form">
+<label class="field">Skin type<select name="type" required><option value="">Choose a skin type</option></select></label>
+<label class="field">Product targeting<select name="gender"><option value="">Any</option><option value="female">Female</option><option value="male">Male</option></select></label>
+<h2>Skin concerns</h2>
+<p class="lead">Choose a severity for any concerns you want to include.</p>
+<div id="concerns"></div>
+<h2>Ingredients to avoid</h2>
+<div id="ingredients" class="chips"></div>
+<button class="btn">Find my matches</button>
+</form>
+</section>
+<section id="matches" hidden>
+<h1>For You</h1>
+<p id="match-summary" class="lead" role="status"></p>
+<div id="match-list"></div>
+<button type="button" class="btn light" data-go="profile">Edit my skin profile</button>
+</section>
+<section id="products" hidden>
+<h1>All Products</h1>
+<label class="field">Search the fictional catalog<input id="search" type="text" placeholder="Product, brand, or category"></label>
+<p id="catalog-count" class="lead" role="status"></p>
+<div id="product-list"></div>
+</section>
+</main>
+<nav class="bottomnav" aria-label="Demo pages">
+<button type="button" data-go="profile" class="active" aria-current="page">My Skin</button>
+<button type="button" data-go="matches">For You</button>
+<button type="button" data-go="products">Products</button>
+</nav>
+</div>
+</body>
+</html>
